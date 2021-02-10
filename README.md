@@ -4,7 +4,7 @@ with an rgb matrix.
 _ _ _
 
 Place this code into the keymap.c file for the keyboard you are using. You
-should place it above the `process_record_user()` function. It will instantiate
+should place it above the `process_record_user()` function. It will initialize
 the variables we need.
 
 ```c
@@ -64,6 +64,15 @@ void rgb_matrix_indicators_user(void) {
 	}
 }
 ```
+
+The variable `space` here is set to an array of 3 different numbers here.
+I'm trying to remember why 2 years after writing this code. Looking at the `if`
+conditions here, I think that when in *MIT* layout (2u spacebar), the space
+switch occupies the `41` position on the PCB, but due to the wider keycap,
+physically occupies the space above the `41`, `42`, and `43` rgb cells. So if
+you are using the keyboard in its *Grid* layout (no 2u spacebar), you can
+probably remove the `space` variable definition and all of those `if` conditions
+except for `if (loc == 255)`.
 
 I no longer have the keymap.c for my planck lite, or the planck lite itself, so
 I am unable to test this code against the latest version QMK, but this should be
